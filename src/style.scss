@@ -1,0 +1,40 @@
+// @import 'bootstrap/dist/css/bootstrap.min.css';
+
+// // @import 'bootstrap';
+
+// $body-color: #333;
+// $body-bg: red;
+// $border-radius: 0.4rem;
+// $success: #7952b3;
+
+// $bs-body-font-size: 200px;
+// $body-bg: #000;
+// $body-color: #111;
+// $primary: red;
+
+// $primary: #ff4444;
+// $danger: #ff4136;
+
+$theme-colors: (
+  primary: #234d7b,
+  secondary: #3b3c3e,
+  success: #1e6111,
+  info: #64c3d2,
+  warning: #f5e74a,
+  danger: #820410,
+);
+
+// @import 'bootstrap/scss/bootstrap';
+
+* {
+  margin: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
