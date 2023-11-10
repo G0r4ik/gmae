@@ -15,14 +15,14 @@
 // $primary: #ff4444;
 // $danger: #ff4136;
 
-$theme-colors: (
-  primary: #234d7b,
-  secondary: #3b3c3e,
-  success: #1e6111,
-  info: #64c3d2,
-  warning: #f5e74a,
-  danger: #820410,
-);
+// $theme-colors: (
+//   primary: #234d7b,
+//   secondary: #3b3c3e,
+//   success: #1e6111,
+//   info: #64c3d2,
+//   warning: #f5e74a,
+//   danger: #820410,
+// );
 
 @import 'bootstrap/scss/bootstrap';
 
@@ -39,7 +39,24 @@ body {
   color: #d2d2d2;
 }
 
+main {
+  margin-top: 75px;
+}
+
 .container {
   max-width: 1000px;
   margin: 0 auto;
+}
+
+select {
+  background: none;
+  border: none;
+  border-bottom: 3px solid white;
+  color: white;
+  padding: 2.5px;
+  cursor: pointer;
+}
+
+option {
+  color: black;
 }

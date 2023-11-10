@@ -1,14 +1,12 @@
 <template>
   <div class="start">
     <div class="text-center start__inner">
-      <button class="btn btn-primary">Играть с компьютером</button>
-      <button class="btn btn-primary" @click="router.push('/rooms')">
-        Играть с другом
-      </button>
+      <!-- <button class="btn btn-primary">Играть с компьютером</button> -->
+      <button class="" @click="router.push('/rooms')">Играть с другом</button>
     </div>
-    <button class="btn btn-primary" @click="router.push('/about')">
+    <!-- <button class="btn btn-primary" @click="router.push('/about')">
       Об игре
-    </button>
+    </button> -->
   </div>
 </template>
 

@@ -8,10 +8,16 @@ module.exports = {
     'plugin:n/recommended',
     'plugin:unicorn/all',
     'airbnb',
+    'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  plugins: ['promise', 'unicorn'],
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser',
+  },
+  plugins: ['promise', 'unicorn', '@typescript-eslint'],
   rules: {
     'no-console': 'off',
     'no-plusplus': 'off',

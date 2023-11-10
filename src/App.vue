@@ -7,10 +7,7 @@
 
 <script setup lang="ts">
 import AppHeader from './components/AppHeader.vue'
-</script>
+import { useWs } from './stores/ws'
 
-<style scoped>
-main {
-  margin-top: 50px;
-}
-</style>
+useWs().setConnection()
+</script>
