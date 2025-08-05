@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-at */
 /* eslint-disable max-classes-per-file */
 export class Line {
   id: string
@@ -92,14 +93,14 @@ function createEdges(map: (Line | Point | Cell)[][]) {
     const element = item as Point | Line
     element.isEdge = true
   }
-  for (const item of map.at(-1)) {
+  for (const item of map[map.length - 1]) {
     const element = item as Point | Line
     element.isEdge = true
   }
   for (const row of map) {
     const row2 = row as (Point | Line)[]
     row2[0].isEdge = true
-    row2.at(-1).isEdge = true
+    row2[row2.length - 1].isEdge = true
   }
 }
 
@@ -108,16 +109,19 @@ export function createMap(size = 5) {
 
   for (let i = 0; i < size; i++) {
     map.push([])
-    for (let index = 0; index < size; index++) map.at(-1).push(...Row1())
-    map.at(-1).push(Row1()[0])
-    map.push([])
-    for (let index = 0; index < size; index++) map.at(-1).push(...Row2())
-    map.at(-1).push(Row2()[0])
-  }
-  map.push([])
+    for (let index = 0; index < size; index++)
+      map[map.length - 1].push(...Row1())
+    map[map.length - 1].push(Row1()[0])
 
-  for (let i = 0; i < size; i++) map.at(-1).push(...Row1())
-  map.at(-1).push(Row1()[0])
+    map.push([])
+    for (let index = 0; index < size; index++)
+      map[map.length - 1].push(...Row2())
+    map[map.length - 1].push(Row2()[0])
+  }
+
+  map.push([])
+  for (let i = 0; i < size; i++) map[map.length - 1].push(...Row1())
+  map[map.length - 1].push(Row1()[0])
 
   createEdges(map)
   map = setCounts(map)

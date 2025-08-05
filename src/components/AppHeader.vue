@@ -2,12 +2,12 @@
   <header class="header">
     <div class="container">
       <div class="header__inner">
-        <button
+        <!-- <button
           v-if="$route.fullPath !== '/'"
           class="header__go-to-main"
           @click="$router.push('/')">
           Главная
-        </button>
+        </button> -->
         <div class="header__user">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -116,6 +116,10 @@ useWs().connection.addEventListener('message', event => {
   }
   .header_count-span {
     display: none;
+  }
+  .header__go-to-main {
+    width: 15px;
+    overflow: hidden;
   }
 }
 </style>

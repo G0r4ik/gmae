@@ -36,11 +36,15 @@
           <div v-if="enemyCouldRestart">
             Противник желает продолжить игру
             <button @click="acceptRestart">Согласиться</button>
-            <button @click="leaveGame">Выйти</button>
+            <button @click="leaveGameFunction">Выйти</button>
+          </div>
+          <div v-else-if="enemyLeave">
+            Противник вышел из игры
+            <button @click="leaveGameFunction">Выйти</button>
           </div>
           <div v-else>
             <button @click="restartGame">Повторить</button>
-            <button @click="leaveGame">Выйти</button>
+            <button @click="leaveGameFunction">Выйти</button>
           </div>
         </div>
         <div class="field">
@@ -49,7 +53,10 @@
             ref="rows"
             :key="y"
             class="row_"
-            :style="{ height: `${percentOfOneItem * (y % 2 === 1 ? 3 : 1)}%` }">
+            :style="{
+              minHeight: `${percentOfOneItem * (y % 2 === 1 ? 3 : 1)}%`,
+              // minHeight: `${}%`,
+            }">
             <div
               v-for="(item, x) of row"
               :key="x"
@@ -93,6 +100,7 @@ const currentHod = computed(() => (hod.value === 1 ? 0 : 1))
 const currentUser = computed(() => useUser().usersInGame[currentHod.value])
 
 const enemyCouldRestart = ref(false)
+const enemyLeave = ref(false)
 
 const winner = computed(() => {
   if (scores.value[0] > scores.value[1]) return useUser().usersInGame[0]
@@ -169,22 +177,22 @@ function makeMove(x: number, y: number, isYourMoveParameter: boolean = true) {
   }
 }
 
-function leaveGame() {
-  useWs().sendMessage({
-    meta: 'leave',
-    event: 'message',
-    user: currentUser.value,
-    room: useUser().room,
-  })
-  router.push('/rooms')
-}
-
 function clear() {
   isEndGame.value = false
   countOfMoves = 0
   scores.value[0] = 0
   scores.value[1] = 0
   map.value = createMap(sizeOfMap)
+}
+
+function leaveGameFunction() {
+  useWs().sendMessage({
+    meta: 'leaveGame',
+    event: 'message',
+    user: useUser().user,
+    room: useUser().room,
+  })
+  router.push('/rooms')
 }
 
 function acceptRestart() {
@@ -221,6 +229,9 @@ useWs().connection.addEventListener('message', event => {
   if (message.type === 'restart') {
     enemyCouldRestart.value = true
   }
+  if (message.type === 'leaveGame') {
+    enemyLeave.value = true
+  }
 })
 </script>
 
@@ -237,15 +248,19 @@ useWs().connection.addEventListener('message', event => {
 .field {
   aspect-ratio: 1 / 1;
   overflow: auto;
+  border: 1px solid red;
   gap: 10px;
   flex-direction: column;
   display: flex;
-  max-height: 95vh;
+  /* max-height: 100vh;
+  width: 100%; */
 }
-.row_ {
+
+row_ {
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .point {
@@ -253,24 +268,28 @@ useWs().connection.addEventListener('message', event => {
   min-height: 10px;
   background: gainsboro;
   border-radius: 2px;
+  flex-shrink: 0;
 }
 .line-g {
-  min-width: 50px;
-  min-height: 10px;
+  /* min-width: 50px;
+  min-height: 10px; */
   background: lightgray;
   border-radius: 2px;
+  flex-shrink: 0;
 }
 .line-v {
-  min-width: 10px;
-  min-height: 50px;
+  /* min-width: 10px;
+  min-height: 50px; */
   background: lightgray;
   border-radius: 2px;
+  flex-shrink: 0;
 }
 .edge {
   background: lightslategrey;
 }
 .cell {
-  min-width: 50px;
+  /* min-width: 50px; */
+  flex-shrink: 0;
 }
 
 .opp-1 {
@@ -311,8 +330,7 @@ button {
 }
 .game__opponents-item {
   color: black;
-  padding: 15px;
+  padding: 5px;
   display: inline-block;
 }
 </style>
-../utils/map../utils/ws
